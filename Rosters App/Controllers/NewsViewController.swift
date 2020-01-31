@@ -44,11 +44,11 @@ extension NewsViewController {
     func addRefreshControl() {
         self.refreshControl = UIRefreshControl()
         self.refreshControl?.tintColor = UIColor.blue
-        self.refreshControl?.addTarget(self, action: #selector(refreshTeams), for: .valueChanged)
+        self.refreshControl?.addTarget(self, action: #selector(refreshEvents), for: .valueChanged)
         self.newsTableView.addSubview(refreshControl ?? UIRefreshControl())
     }
     
-    @objc func refreshTeams() {
+    @objc func refreshEvents() {
         guard let earlyDate = Calendar.current.date(byAdding: .minute, value: -40, to: Date()) else { return  }
         let userDefaultsService = UserDefaultsSerivice()
         userDefaultsService.setUpdateTime(withValue: earlyDate, forEntity: UpdateTime.Event)

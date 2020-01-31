@@ -9,8 +9,8 @@
 import Foundation
 
 enum UpdateTime: String {
-    case Team = "1"
-    case Event = "2"
+    case Team   = "1"
+    case Event  = "2"
     case Player = "3"
 }
 
@@ -23,7 +23,7 @@ class UserDefaultsSerivice {
 }
 
 extension UserDefaultsSerivice: UserDefaultsServiceManaging {
-    func getUpdateTime(forEntity entity: UpdateTime) -> Any? {
+    func getUpdateTime(forEntity entity: UpdateTime) -> Date? {
         let date = self.defaults.object(forKey: entity.rawValue) as? Date
         return date
     }

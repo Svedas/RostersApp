@@ -9,7 +9,7 @@
 import Foundation
 
 protocol UserDefaultsServiceManaging {
-    func getUpdateTime(forEntity entity: UpdateTime) -> Any?
+    func getUpdateTime(forEntity entity: UpdateTime) -> Date?
     func setUpdateTime(withValue value: Date, forEntity entity: UpdateTime)
     func removeUpdateTime(forEntity entity: UpdateTime)
     func isUpdateTimeExists(forEntity entity: UpdateTime) -> Bool

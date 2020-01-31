@@ -43,11 +43,11 @@ extension PlayersViewController {
     func addRefreshControl() {
         self.refreshControl = UIRefreshControl()
         self.refreshControl?.tintColor = UIColor.blue
-        self.refreshControl?.addTarget(self, action: #selector(refreshTeams), for: .valueChanged)
+        self.refreshControl?.addTarget(self, action: #selector(refreshPlayers), for: .valueChanged)
         self.playersTableView.addSubview(refreshControl ?? UIRefreshControl())
     }
     
-    @objc func refreshTeams() {
+    @objc func refreshPlayers() {
         guard let earlyDate = Calendar.current.date(byAdding: .minute, value: -40, to: Date()) else { return  }
         let userDefaultsService = UserDefaultsSerivice()
         userDefaultsService.setUpdateTime(withValue: earlyDate, forEntity: UpdateTime.Player)
@@ -56,7 +56,6 @@ extension PlayersViewController {
             self.render(state: state)
             self.refreshControl?.endRefreshing()
         }
-        //self.teamCollectionView.reloadData()
     }
 }
 
@@ -72,14 +71,15 @@ extension PlayersViewController {
     }
 }
 
-extension PlayersViewController: UITableViewDataSource, UITableViewDelegate  { //TableView methods
+extension PlayersViewController: UITableViewDataSource, UITableViewDelegate { //TableView methods
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return players.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let playerCell = tableView.dequeueReusableCell(withIdentifier: "playerCell",
-                                                             for: indexPath) as? PlayerCell else { return UITableViewCell() }
+                                                             for: indexPath) as? PlayerCell
+        else { return UITableViewCell() }
         playerCell.setCell(name: players[indexPath.row].name, image: players[indexPath.row].icon)
         
         return playerCell

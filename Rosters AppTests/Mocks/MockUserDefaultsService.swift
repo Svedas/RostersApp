@@ -16,7 +16,7 @@ class MockUserDefaultsService {
 }
 
 extension MockUserDefaultsService: UserDefaultsServiceManaging {
-    func getUpdateTime(forEntity entity: UpdateTime) -> Any? {
+    func getUpdateTime(forEntity entity: UpdateTime) -> Date? {
         switch entity {
         case .Team:
             return teamTime != nil ? teamTime : nil
@@ -62,14 +62,13 @@ extension MockUserDefaultsService: UserDefaultsServiceManaging {
     
     func shouldUpdate(forEntity entity: UpdateTime) -> Bool {
         guard let updateTime = self.getUpdateTime(forEntity: entity) else { return true }
-        let timeInterval = Date().getMinutes(fromDate: updateTime)
         switch entity {
         case .Team:
-            return timeInterval > 60 ? true : false
+            return Date().getMinutes(fromDate: updateTime) > 60 ? true : false
         case .Player:
-            return timeInterval > 30 ? true : false
+            return Date().getMinutes(fromDate: updateTime) > 30 ? true : false
         case .Event:
-            return timeInterval > 15 ? true : false
+            return Date().getMinutes(fromDate: updateTime) > 15 ? true : false
         }
     }
     
